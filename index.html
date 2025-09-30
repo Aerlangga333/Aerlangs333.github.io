@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Richfood Shop</title>
+  <style>
+    body {
+      margin: 2;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      margin-top: 65px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #ff007f;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    ul li {
+      float: left;
+      margin-right: 30px;
+    }
+
+    ul li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 16pt;
+      cursor: pointer;
+    }
+
+    ul li a:hover {
+      background-color: #929a91;
+    }
+
+    h2::before {
+      content: "🍛 ";
+      display: block;
+      font-size: 80pt;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: Calibri, sans-serif;
+      font-size: 40pt;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    p {
+      font-family: Calibri, sans-serif;
+      font-size: 18pt;
+      margin: 15px;
+      text-align: center;
+    }
+
+    
+    .menu-card {
+      width: 800px;
+      padding: 20px;
+      border: 2px solid #ff229c;
+      border-radius: 12px;
+      background: #e9b4d9;
+      text-align: center;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .menu-card img {
+      width: 300px;
+      margin-bottom: 30px;
+    }
+
+    .menu-card h3 {
+      font-size: 20px;
+      margin: 0 0 10px;
+      color: #2c2c2c;
+    }
+
+    .menu-card p {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .menu-card .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff229c;
+    }
+
+ 
+    .page {
+      display: none; 
+    }
+    .active {
+      display: block; 
+    }
+  </style>
+</head>
+<body>
+
+
+  <ul>
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('about')">About</a></li>
+    <li><a onclick="showPage('order&contact')">Order&Contact</a></li>
+  </ul>
+
+
+  <div id="home" class="page active">
+    <h2>Richfood Shop</h2>
+    <p>Selamat datang di Richfood Shop! Kami selalu punya makanan enak, lho.</p>
+
+    <div class="menu-card">
+      <img src="risoles.jpg" alt="Ikon risol">
+      <h3>Risoles mayo</h3>
+      <p>camilan gurih dan lezat yang terdiri dari kulit tipis dengan isi smoked beef, telur puyuh dengan saus mayones dan saus pedas.</p>
+      <div class="price">Rp 3.000</div>
+    </div>
+
+    <div class="menu-card">
+      <img src="tahu.jpg" alt="Ikon tahu">
+      <h3>Tahu mercon</h3>
+      <p>Tahu yang digoreng dan dilapisi tepung dengan isi sayuran segar dan sambal yang pastinya membuat kamu ketagihan.</p>
+      <div class="price">Rp 2.000</div>
+    </div>
+
+    <div class="menu-card">
+      <img src="pie.jpg" alt="Ikon Pie">
+      <h3>Pie Susu</h3>
+      <p>Kue pie mini yang manis berbentuk seperti piring yang dilapisi krimer dan karamel susu di bagian tengah.</p>
+      <div class="price">Rp 5.000</div>
+    </div>
+  </div>
+
+ <div id="about" class="page">
+    <h2>Tentang Richfood Shop</h2>
+    <p>
+      Richfood Shop berdiri sejak 2025 sebagai penyedia makanan sekaligus menampung dana usaha 
+      yang digunakan untuk kegiatan kepanitiaan atau yang lainnya dengan bahan berkualitas tinggi.
+      Kami berkomitmen menghadirkan makanan sehat, enak, dan bergizi untuk semua pelanggan kami.
+    </p>
+
+  </div>
+
+  <div id="order&contact" class="page">
+  <!-- Formulir Pemesanan -->
+  <div class="menu-card">
+    <h3>Formulir Pemesanan</h3>
+    <form id="orderForm" style="margin-top: 15px;">
+      <label for="menu">Pilih Menu:</label><br>
+      <select id="menu" name="menu" onchange="updatePrice()" required>
+        <option value="" disabled selected>Pilih menu</option>
+        <option value="Risoles mayo" data-price="3000">Risoles mayo</option>
+        <option value="Tahu mercon" data-price="2000">Tahu mercon</option>
+        <option value="Pie susu" data-price="5000">Pie susu</option>
+      </select>
+
+      <br><br>
+      <label for="qty">Jumlah:</label><br>
+      <input type="number" id="qty" name="qty" min="1" value="1" onchange="updatePrice()" required>
+
+      <br><br>
+      <label>Total Harga:</label><br>
+      <span id="totalPrice" style="font-weight:bold; color:#ff229c;">Rp 0</span>
+
+      <br><br>
+      <label for="nama">Nama:</label><br>
+      <input type="text" id="nama" name="nama" required>
+
+      <br><br>
+      <label for="alamat">Alamat Pengiriman:</label><br>
+      <textarea id="alamat" name="alamat" rows="3" required style="width:100%;"></textarea>
+
+      <br><br>
+      <button type="submit" style="padding:10px 20px; background:#ff229c; color:white; border:none; border-radius:8px; cursor:pointer;">Pesan</button>
+    </form>
+  </div>
+
+  <!-- Informasi Kontak -->
+  <div class="menu-card">
+    <h2>Hubungi Kami</h2>
+    <p>Email: <strong>richfoodshop@email.com</strong></p>
+    <p>Telepon: <strong>0858.3211.0850</strong></p>
+    <p>Alamat: <strong>Jl. Tolak Miskin No. 33, Pythagoras</strong></p>
+  </div>
+
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Navigasi antar halaman
+    function showPage(pageId) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(pageId);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+
+    // Update harga pesanan
+    function updatePrice() {
+      const menu = document.getElementById('menu');
+      const qty = document.getElementById('qty').value;
+      const selected = menu.options[menu.selectedIndex];
+      const price = selected ? Number(selected.getAttribute('data-price')) : 0;
+      const total = price * qty;
+      document.getElementById('totalPrice').textContent = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    // Form submit
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Terima kasih, pesanan Anda telah diterima!');
+      this.reset();
+      document.getElementById('totalPrice').textContent = 'Rp 0';
+    });
+  </script>
+</body>
+</html>
